@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow:
 
-Sitemap: https://dailyhint-kkuldeal.github.io/sitemap.xml
+Sitemap: https://junil1649-lgtm.github.io/dailyhint-kkuldeal/sitemap.xml

@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 
 # ── 설정 ──────────────────────────────────────────────────────────────────────
 SITE_NAME      = '데일리힌트 꿀딜'
-SITE_URL       = 'https://dailyhint-kkuldeal.github.io'  # GitHub Pages URL (배포 후 변경)
+SITE_URL       = 'https://junil1649-lgtm.github.io/dailyhint-kkuldeal'
 SITE_TAGLINE   = '생활용품·주방용품 가성비 비교 추천'
 SITE_DESC      = '생활용품과 주방용품의 실제 사용 후기와 가성비 비교 정보를 제공합니다. 쿠팡 인기상품 실시간 추천.'
 AUTHOR         = '데일리힌트'
