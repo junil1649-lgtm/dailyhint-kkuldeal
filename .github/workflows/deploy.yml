@@ -1,0 +1,37 @@
+name: 데일리힌트 꿀딜 — 사이트 생성 & 배포
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 1 * * *'   # 매일 오전 10시(KST) 자동 재생성
+  workflow_dispatch:        # 수동 실행 버튼
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 소스 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 사이트 생성
+        run: python generate.py
+
+      - name: GitHub Pages 배포
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: '🤖 자동 사이트 업데이트 [${{ github.run_number }}]'

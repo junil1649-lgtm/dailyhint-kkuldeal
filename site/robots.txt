@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow:
+
+Sitemap: https://dailyhint-kkuldeal.github.io/sitemap.xml
