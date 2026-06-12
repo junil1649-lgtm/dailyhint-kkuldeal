@@ -8,12 +8,16 @@ on:
   workflow_dispatch:        # 수동 실행 버튼
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: 소스 체크아웃
@@ -27,11 +31,18 @@ jobs:
       - name: 사이트 생성
         run: python generate.py
 
-      - name: GitHub Pages 배포
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Pages 아티팩트 업로드
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: '🤖 자동 사이트 업데이트 [${{ github.run_number }}]'
+          path: ./site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: GitHub Pages 배포
+        id: deployment
+        uses: actions/deploy-pages@v4
